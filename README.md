@@ -16,10 +16,9 @@
 - [**Decrypt files**](https://github.com/WonderBoyHub/ITsecurity/tree/main/GnuPG/Third)
 - [**Find the Weaknesses and Leaks**](https://github.com/WonderBoyHub/ITsecurity/tree/main/GnuPG/Fourth)
 
-## Hashing
+## Hashing & SQL Injection
 ### [Application](https://github.com/WonderBoyHub/ITsecurity/tree/main/Python/Hashing)
 - Algorithms
 - Encryption/Decryption
-    - Symmetric
-    - Asymmetric
-- TLS
+- SQL Injection (needs documentation, too lazy right now)
+
