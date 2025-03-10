@@ -1,0 +1,1 @@
+Take the text of this assignment, and put it into a txt document. Then sign it with a regular digital signature, name the output SecE2.sign.txt, and put it into the repo.

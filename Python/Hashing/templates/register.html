@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>User Registration</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 2em; }
+      form { max-width: 300px; }
+      label { display: block; margin-top: 1em; }
+      input { width: 100%; padding: 0.5em; margin-top: 0.5em; }
+      button { margin-top: 1em; padding: 0.5em 1em; }
+      .error { color: red; }
+      .success { color: green; }
+    </style>
+  </head>
+  <body>
+    <h1>Register</h1>
+
+    <!-- Display flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="post">
+      <label for="userid">User ID:</label>
+      <input type="text" id="userid" name="userid" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit">Register</button>
+    </form>
+  </body>
+</html>
