@@ -2,7 +2,7 @@ import os
 import sys
 import re
 import sqlite3
-import bcrypt
+from hashlib import sha256
 from flask import Flask, render_template, request, flash, redirect, url_for
 
 app = Flask(__name__)
@@ -45,8 +45,8 @@ def register_user(userid, password, rockyou_instance):
     if rockyou_instance.check_password(password):
         return False, "Error: The password provided is compromised. Please choose a different password."
 
-    # Hash the password using bcrypt.
-    hashed_pw = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    # Hash the password using sha256.
+    hashed_pw = sha256(password.encode('utf-8')).hexdigest()
 
     # Connect to SQLite database (creates test.db if it doesn't exist).
     conn = sqlite3.connect('test.db')
@@ -54,9 +54,11 @@ def register_user(userid, password, rockyou_instance):
 
     # Create users table if it doesn't exist.
     c.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            userid TEXT PRIMARY KEY,
-            password BLOB
+        CREATE TABLE IF NOT EXISTS user256 (
+            id integer primary key autoincrement,
+            userid varchar(32) unique not null,
+            password blob nut null,
+            comments text not null
         )
     ''')
 
@@ -126,7 +128,8 @@ def login():
             return redirect(url_for('login'))
 
         rowid, uid, stored_hash = user
-        if bcrypt.checkpw(password.encode('utf-8'), stored_hash):
+        # Recompute sha256 hash and compare with the stored hash.
+        if sha256(password.encode('utf-8')).hexdigest() == stored_hash:
             flash(f"Login successful: id={rowid}, userid={uid}", "success")
         else:
             flash("Error: Login failed. Incorrect password.", "error")
